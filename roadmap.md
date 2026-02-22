@@ -26,12 +26,12 @@ Planned MCP tools beyond the current `thought_clarifier`.
 
 ---
 
-## Module 4: Political Talk Show ✅
+## Module 4: Political Discourse ✅
 
-**Tool**: `political_debate` — **Implemented**
+**Tool**: `political_discourse` — **Implemented**
 
-**Input**: `{ party1: string, party2: string, topics: string[] (1–10), search?: boolean }` — two party names, debate topics, and optional web search for latest positions.
+**Input**: `{ citations: Array<{ source: string, text: string }> (1–10), topic?: string }` — one or more political citations with source attribution, and optional topic context.
 
-**Behavior**: Simulates a structured NVC debate between two political parties. For each topic, proceeds through four phases: Position Mapping (observation-level summaries), Needs Excavation (mapping positions to the needs catalog), Empathic Dialogue (each party speaks in four-component NVC), and Common Ground (shared needs, divergent strategies, genuine tensions). Concludes with a cross-topic synthesis and reflection prompt. When `search` is enabled, instructs the host LLM to look up current party positions before generating.
+**Behavior**: Analyzes real political citations through the NVC lens in three phases. Phase 1 displays citations verbatim. Phase 2 identifies life-alienating communication patterns (moralistic judgments, evaluations as facts, generalizations, accusations of motive, faux feelings, demands, denial of responsibility, dehumanizing language, us-vs-them framing, comparisons), surfaces hidden observations, unexpressed feelings, and underlying needs. Phase 3 (on user request only) transforms citations into four-component NVC statements preserving the original political intent. Multi-citation input includes a cross-citation comparison.
 
-**Use case**: "Simulate a debate between the Democrats and Republicans on healthcare and immigration, using NVC."
+**Use case**: "Analyze this quote from [politician]: '[quote]' — what NVC patterns do you see?"

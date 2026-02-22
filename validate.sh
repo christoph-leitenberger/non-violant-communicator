@@ -35,7 +35,7 @@ KNOWLEDGE_FILES=(
   "knowledge/catalogs/needs.yaml"
   "knowledge/message-transformation-guide.md"
   "knowledge/trainer-guide.md"
-  "knowledge/political-debate-guide.md"
+  "knowledge/political-discourse-guide.md"
   "knowledge/README.md"
 )
 

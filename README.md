@@ -86,7 +86,7 @@ MCP is an open standard. This server works with any client that speaks the proto
 | `thought_clarifier` | Analyze free-form text through the NVC lens. Surfaces feelings, needs, and an optional request. |
 | `transform_message` | Rewrite any message (email, chat, feedback) using NVC principles. One-shot or guided mode. |
 | `nvc_trainer` | Interactive NVC practice exercises. Pick a topic and difficulty level. |
-| `political_debate` | Simulate a structured political debate between two parties using NVC principles. |
+| `political_discourse` | Analyze political citations through the NVC lens — identify life-alienating patterns and surface human needs behind rhetoric. |
 | `submit_feedback` | Share suggestions, report issues, or tell us what you liked. Stored locally. |
 
 ### Resources

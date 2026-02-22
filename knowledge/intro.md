@@ -34,13 +34,13 @@ Your personal NVC coach. Pick a topic — observations, feelings, needs, or requ
 
 **Example prompt:** "Give me an intermediate exercise on feelings."
 
-### `political_debate`
+### `political_discourse`
 
-The NVC debate stage. Pick two political parties and a set of topics, and watch them engage in a structured four-phase debate — all grounded in NVC principles. Each side states observations, names feelings, identifies shared needs, and makes concrete requests. It's a demonstration of how even polarized positions can find common ground when the conversation structure changes.
+The NVC lens for political speech. Paste one or more real political quotes and see what's happening underneath: moralistic judgments, evaluations disguised as facts, demands, dehumanizing language, and the universal human needs the speaker is trying to meet. If you want, it can then transform the citations into NVC-structured versions that preserve the same political intent.
 
-**Try it:** Name two parties (real or fictional) and a few topics you'd like them to debate.
+**Try it:** Paste a quote from a politician, party program, or political speech — or several quotes on the same topic from different sides.
 
-**Example prompt:** "Simulate a debate between the Green Party and the Libertarian Party on climate policy and housing."
+**Example prompt:** "Analyze this quote from [politician]: '[quote]' — what NVC patterns do you see?"
 
 ### `submit_feedback`
 
