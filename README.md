@@ -48,36 +48,6 @@ Add to your `.claude/settings.json` or project settings:
 }
 ```
 
-### ChatGPT (via MCP SuperAssistant)
-
-The lowest barrier — works with free ChatGPT, no paid plan required.
-
-1. Install the [MCP SuperAssistant](https://chromewebstore.google.com/detail/mcp-superassistant/kngiafgkdnlkgmefdafaibkibegkcaef) Chrome extension
-2. Create a `mcpconfig.json` file:
-
-```json
-{
-  "mcpServers": {
-    "nvc": {
-      "command": "npx",
-      "args": ["non-violant-communicator"]
-    }
-  }
-}
-```
-
-3. Run the proxy:
-
-```bash
-npx @srbhptl39/mcp-superassistant-proxy@latest --config ./mcpconfig.json
-```
-
-4. Open ChatGPT — the NVC tools appear in the extension sidebar.
-
-### ChatGPT Developer Mode
-
-ChatGPT Pro, Plus, Business, Enterprise, and Edu plans have native MCP support, but it requires a remote HTTP endpoint. Bridges like `mcp-remote` or tunnels like `ngrok` can expose a local stdio server — see their respective docs for setup.
-
 ### Run locally (development)
 
 ```bash
@@ -87,6 +57,12 @@ npm install
 node src/index.js
 ```
 
+## No MCP Client? Use the Prompt
+
+If you don't have an MCP client, you can paste a ready-made prompt into any LLM and get the full NVC assistant experience — zero installs.
+
+**[Copy the NVC prompt](PROMPT.md)** — works with ChatGPT, Gemini, Copilot, or any other LLM chat.
+
 ## Compatible Clients
 
 MCP is an open standard. This server works with any client that speaks the protocol:
@@ -95,7 +71,6 @@ MCP is an open standard. This server works with any client that speaks the proto
 |---|---|
 | Claude Desktop | Native MCP support via `claude_desktop_config.json` |
 | Claude Code | Native MCP support via `.claude/settings.json` |
-| ChatGPT | Via MCP SuperAssistant extension (free) or Developer Mode (paid plans) |
 | Cursor | Native MCP support via settings |
 | Windsurf | Native MCP support via settings |
 | VS Code + Continue | MCP support through the Continue extension |
