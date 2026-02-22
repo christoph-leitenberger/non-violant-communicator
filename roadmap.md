@@ -14,13 +14,13 @@ Planned MCP tools beyond the current `thought_clarifier`.
 
 ---
 
-## Module 3: NVC Trainer
+## Module 3: NVC Trainer ✅
 
-**Tool**: `nvc_trainer`
+**Tool**: `nvc_trainer` — **Implemented**
 
-**Input**: `{ topic: string }` — an NVC topic to practice (e.g., "observations", "feelings vs faux feelings", "needs vs strategies", "requests vs demands")
+**Input**: `{ topic: "observations" | "feelings" | "needs" | "requests", difficulty?: "beginner" | "intermediate" | "advanced" }` — an NVC building block to practice and optional difficulty level (default: beginner).
 
-**Behavior**: Generates interactive exercises on the chosen NVC building block. Presents scenarios and asks the user to distinguish correct NVC formulations from common mistakes. Provides feedback grounded in the knowledge base.
+**Behavior**: Generates interactive exercises on the chosen NVC building block. Format varies by difficulty: beginner uses multiple-choice identification, intermediate adds nuanced distractors and short open-ended prompts, advanced uses complex real-world open-ended reformulation. Provides detailed feedback grounded in the knowledge base, referencing NVC concepts by name.
 
 **Use case**: "Give me a practice exercise on distinguishing feelings from faux feelings."
 
