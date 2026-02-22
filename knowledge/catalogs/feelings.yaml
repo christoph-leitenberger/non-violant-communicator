@@ -1,0 +1,246 @@
+# NVC Feelings Catalog
+# Based on Marshall Rosenberg's NVC framework.
+#
+# IMPORTANT DISTINCTION:
+# Rosenberg identified two categories of feelings:
+#
+# 1. FUNDAMENTAL FEELINGS — directly signal whether a need is met or unmet.
+#    These are the feelings NVC aims to surface and express.
+#
+# 2. MASKING FEELINGS — surface emotions that contain a hidden judgment or
+#    interpretation of another's behavior. Anger is the primary example.
+#    Rosenberg: "Anger is caused by thinking." Beneath anger is always a
+#    more vulnerable fundamental feeling (hurt, scared, sad, powerless).
+#    Masking feelings are valid signals, but they point *toward* a judgment
+#    that needs to be translated — not expressed as the final feeling.
+#
+# Words like "manipulated", "ignored", "abandoned", "betrayed" are NOT feelings
+# at all in NVC — they describe what we think others did to us. See principles.md.
+
+# ─────────────────────────────────────────────
+# FUNDAMENTAL FEELINGS
+# ─────────────────────────────────────────────
+
+fundamental:
+
+  when_needs_are_met:
+
+    joyful:
+      - joyful
+      - delighted
+      - elated
+      - exhilarated
+      - ecstatic
+      - radiant
+      - jubilant
+      - thrilled
+
+    grateful:
+      - grateful
+      - appreciative
+      - moved
+      - touched
+      - thankful
+
+    peaceful:
+      - peaceful
+      - calm
+      - serene
+      - at ease
+      - relaxed
+      - centered
+      - grounded
+      - still
+      - tranquil
+
+    hopeful:
+      - hopeful
+      - optimistic
+      - encouraged
+      - expectant
+      - trusting
+
+    inspired:
+      - inspired
+      - enthusiastic
+      - energized
+      - alive
+      - motivated
+      - stimulated
+      - invigorated
+
+    content:
+      - content
+      - satisfied
+      - fulfilled
+      - pleased
+      - comfortable
+
+    connected:
+      - warm
+      - tender
+      - affectionate
+      - loving
+      - close
+      - secure
+
+    confident:
+      - confident
+      - empowered
+      - proud
+      - strong
+      - capable
+
+    curious:
+      - curious
+      - interested
+      - fascinated
+      - engaged
+      - absorbed
+      - intrigued
+
+    amused:
+      - amused
+      - playful
+      - light-hearted
+      - cheerful
+
+  when_needs_are_unmet:
+
+    sad:
+      - sad
+      - sorrowful
+      - grieving
+      - heartbroken
+      - despairing
+      - dejected
+      - heavy-hearted
+      - unhappy
+      - disappointed
+
+    scared:
+      - scared
+      - afraid
+      - anxious
+      - worried
+      - nervous
+      - terrified
+      - apprehensive
+      - dreading
+      - horrified
+      - panicked
+      - uneasy
+
+    hurt:
+      - hurt
+      - pained
+      - wounded
+      - tender
+      - raw
+
+    powerless:
+      - helpless
+      - powerless
+      - defeated
+      - resigned
+      - paralyzed
+
+    lonely:
+      - lonely
+      - isolated
+      - disconnected
+      - alienated
+      - excluded
+
+    confused:
+      - confused
+      - puzzled
+      - bewildered
+      - baffled
+      - lost
+      - uncertain
+      - ambivalent
+      - torn
+
+    embarrassed:
+      - embarrassed
+      - ashamed
+      - self-conscious
+      - mortified
+      - regretful
+
+    tired:
+      - tired
+      - exhausted
+      - depleted
+      - drained
+      - weary
+      - burnt out
+      - lethargic
+
+    overwhelmed:
+      - overwhelmed
+      - stressed
+      - pressured
+      - loaded
+      - troubled
+
+    restless:
+      - restless
+      - edgy
+      - unsettled
+      - agitated
+      - impatient
+
+    hopeless:
+      - hopeless
+      - pessimistic
+      - discouraged
+
+# ─────────────────────────────────────────────
+# MASKING FEELINGS
+# ─────────────────────────────────────────────
+# These are commonly experienced and named as feelings, but in NVC they are
+# understood as signals that a judgment is active. They serve as an entry point:
+# when you notice one, ask — "What am I telling myself? What fundamental feeling
+# and unmet need lies beneath this?"
+#
+# Anger is the central example. Rosenberg: "I have yet to find an instance of
+# anger that did not have a judgment at its root."
+
+masking:
+
+  anger_family:
+    description: >
+      Anger contains a judgment that someone "should" or "shouldn't" have done something.
+      Beneath it: hurt, scared, sad, powerless, or a combination.
+      Process: Notice anger → find the judgment → identify the need → find the underlying feeling.
+    feelings:
+      - angry
+      - furious
+      - enraged
+      - outraged
+      - resentful
+      - bitter
+      - irritated
+      - annoyed
+      - indignant
+      - hostile
+
+  guilt_shame_family:
+    description: >
+      Guilt and shame involve self-directed judgment ("I should have / I shouldn't have").
+      Beneath them: regret, sadness, fear, or longing — in response to an unmet need
+      (for integrity, care, contribution, etc.).
+    feelings:
+      - guilty
+      - ashamed
+      - humiliated
+      - self-critical
+      - worthless
+
+  note: >
+    The distinction between fundamental and masking is not about suppressing the
+    masking feeling — it is an invitation to go deeper. Expressing "I feel furious"
+    is valid as a starting point; NVC encourages moving toward the more vulnerable
+    layer underneath.

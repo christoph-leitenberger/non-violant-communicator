@@ -1,0 +1,142 @@
+# NVC Needs Catalog
+# Based on Marshall Rosenberg's NVC framework.
+#
+# Needs in NVC are UNIVERSAL — shared by all humans regardless of culture,
+# age, or background. They are not attached to a specific person, action,
+# or object. A need is never "I need YOU to..." — that is a strategy.
+#
+# Distinguishing needs from strategies opens space for creative, mutually
+# satisfying solutions. See four-components.md and principles.md.
+
+needs:
+
+  connection:
+    description: The need to be in meaningful relationship with others and oneself.
+    needs:
+      - belonging
+      - closeness
+      - community
+      - companionship
+      - empathy
+      - intimacy
+      - love
+      - mutuality
+      - nurturing
+      - partnership
+      - respect
+      - support
+      - to be heard
+      - to be seen
+      - to be understood
+      - trust
+      - warmth
+
+  autonomy:
+    description: The need to direct one's own life and express oneself freely.
+    needs:
+      - choice
+      - freedom
+      - independence
+      - individuality
+      - privacy
+      - self-determination
+      - self-expression
+      - space
+      - spontaneity
+
+  meaning:
+    description: The need for life and actions to feel purposeful and significant.
+    needs:
+      - awareness
+      - clarity
+      - competence
+      - contribution
+      - creativity
+      - effectiveness
+      - growth
+      - hope
+      - learning
+      - mourning
+      - participation
+      - purpose
+      - self-expression
+      - stimulation
+      - to matter
+
+  honesty:
+    description: The need for authenticity, integrity, and transparency in oneself and others.
+    needs:
+      - authenticity
+      - honesty
+      - integrity
+      - presence
+      - transparency
+      - trust
+
+  peace:
+    description: The need for inner and outer harmony, beauty, and ease.
+    needs:
+      - beauty
+      - communion
+      - ease
+      - equanimity
+      - harmony
+      - inspiration
+      - order
+      - peace of mind
+      - presence
+
+  safety:
+    description: The need for physical and emotional security and predictability.
+    needs:
+      - consistency
+      - emotional safety
+      - fairness
+      - justice
+      - order
+      - predictability
+      - protection
+      - security
+      - stability
+      - trust
+
+  physical_wellbeing:
+    description: The need to sustain the body's health and vitality.
+    needs:
+      - air
+      - food
+      - health
+      - movement
+      - nourishment
+      - rest
+      - sexual expression
+      - shelter
+      - sleep
+      - touch
+      - water
+
+  play:
+    description: The need for lightness, fun, and joyful engagement.
+    needs:
+      - adventure
+      - excitement
+      - fun
+      - humor
+      - joy
+      - play
+      - relaxation
+      - spontaneity
+
+  interdependence:
+    description: The need to give and receive in relationship — to both depend and be depended upon.
+    needs:
+      - acceptance
+      - appreciation
+      - consideration
+      - cooperation
+      - inclusion
+      - reciprocity
+      - reliability
+      - respect
+      - shared responsibility
+      - support
