@@ -52,7 +52,7 @@ Add to your `.claude/settings.json` or project settings:
 
 The lowest barrier — works with free ChatGPT, no paid plan required.
 
-1. Install the [MCP SuperAssistant](https://chromewebstore.google.com/detail/mcp-superassistant-connec/mfhcomhojadkgajmbgkjoeipbfpinnkf) Chrome extension
+1. Install the [MCP SuperAssistant](https://chromewebstore.google.com/detail/mcp-superassistant/kngiafgkdnlkgmefdafaibkibegkcaef) Chrome extension
 2. Create a `mcpconfig.json` file:
 
 ```json
