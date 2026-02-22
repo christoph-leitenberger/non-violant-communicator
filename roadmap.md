@@ -2,13 +2,13 @@
 
 Planned MCP tools beyond the current `thought_clarifier`.
 
-## Module 2: Message Transformer
+## Module 2: Message Transformer ✅
 
-**Tool**: `transform_message`
+**Tool**: `transform_message` — **Implemented**
 
 **Input**: `{ text: string }` — any message (email, chat, feedback, etc.)
 
-**Behavior**: Rewrites the message using NVC principles. Strips evaluations, translates faux feelings, identifies underlying needs, and reformulates the message using the four-component structure (observation, feeling, need, request).
+**Behavior**: Rewrites the message using NVC principles. Offers two modes: one-shot (direct rewrite with "What changed" summary) or guided (step-by-step clarification through observation → feelings → needs → request). Strips evaluations, translates faux feelings, identifies underlying needs, and reformulates the message using the four-component structure.
 
 **Use case**: "Rewrite this angry email to my colleague using NVC."
 

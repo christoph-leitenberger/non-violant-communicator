@@ -14,6 +14,18 @@ Your internal translator. Dump any messy thought, frustrating situation, or unse
 
 **Example prompt:** "I'm so annoyed that my teammate keeps interrupting me in meetings. It's like my ideas don't matter."
 
+### `transform_message`
+
+Your message rewriter. Paste any message — an email draft, a chat reply, difficult feedback — and get back a version that uses NVC principles while preserving what you actually want to say.
+
+You choose the mode:
+- **One-shot** — instant rewrite with a "What changed" summary
+- **Guided** — step-by-step clarification through observation, feelings, needs, and request
+
+**Try it:** Share a message you want to improve — a tense email, a complaint, feedback for a colleague — and pick your preferred mode.
+
+**Example prompt:** "Can you help me rewrite this: 'You never listen to my suggestions in our planning meetings. I'm done trying to contribute.'"
+
 ### `submit_feedback`
 
 Found a bug? Have an idea? Just want to say thanks? Use this tool to send feedback. It's stored locally in `feedback.json` — no data leaves your machine.
