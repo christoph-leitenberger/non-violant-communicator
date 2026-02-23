@@ -27,14 +27,16 @@ The `thought_clarifier` tool does NOT call an external API. It:
 npm install          # Install dependencies
 node src/index.js    # Run the MCP server
 bash validate.sh     # Validate knowledge base integrity
+npm test             # Run unit tests (requires Node 18+)
 ```
 
-## Planned Modules
+## Modules
 
-See `roadmap.md` for the 3 remaining tools:
-1. **Message Transformer** — rewrite any message using NVC
-2. **NVC Trainer** — interactive NVC exercises
-3. **Political Talk Show** — party programs debated in NVC format
+All 4 tools are implemented:
+1. **Thought Clarifier** — free-form text → NVC analysis (feelings, needs, request)
+2. **Message Transformer** — rewrite any message using NVC principles
+3. **NVC Trainer** — interactive NVC practice exercises
+4. **Political Discourse** — analyze political citations through the NVC lens
 
 ---
 

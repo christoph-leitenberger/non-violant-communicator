@@ -3,3 +3,5 @@ node_modules/
 *.log
 .DS_Store
 feedback.json
+.claude/
+.mcp.json

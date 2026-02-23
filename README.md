@@ -9,7 +9,7 @@ No API keys. No external calls. The server bundles a curated NVC knowledge base 
 It's on npm and works with any MCP client:
 
 ```bash
-npx non-violant-communicator
+npx non-violent-communicator
 ```
 
 Tell the LLM what's bugging you, paste a difficult email, or practice NVC building blocks — five tools are ready to go. Found something to improve? Use the built-in `submit_feedback` tool.
@@ -25,7 +25,7 @@ Add to your `claude_desktop_config.json`:
   "mcpServers": {
     "nvc": {
       "command": "npx",
-      "args": ["non-violant-communicator"]
+      "args": ["non-violent-communicator"]
     }
   }
 }
@@ -42,7 +42,7 @@ Add to your `.claude/settings.json` or project settings:
   "mcpServers": {
     "nvc": {
       "command": "npx",
-      "args": ["non-violant-communicator"]
+      "args": ["non-violent-communicator"]
     }
   }
 }
@@ -52,7 +52,7 @@ Add to your `.claude/settings.json` or project settings:
 
 ```bash
 git clone <repo-url>
-cd non-violant-communicator
+cd non-violent-communicator
 npm install
 node src/index.js
 ```

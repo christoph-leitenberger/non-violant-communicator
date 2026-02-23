@@ -11,6 +11,7 @@ import { z } from "zod";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const rootDir = join(__dirname, "..");
 const feedbackFile = join(rootDir, "feedback.json");
+const MAX_FEEDBACK_ENTRIES = 1000;
 
 // ---------------------------------------------------------------------------
 // Load knowledge files once at startup (fail fast if missing)
@@ -73,68 +74,21 @@ const server = new McpServer(
 // Resources — expose the knowledge base for direct browsing
 // ---------------------------------------------------------------------------
 
-server.resource(
-  "intro",
-  "nvc://intro",
-  { description: "Getting started guide — what this server offers and how to use it" },
-  async (uri) => ({
-    contents: [{ uri: uri.href, mimeType: "text/markdown", text: knowledge.intro }],
-  })
-);
+const resourceDefs = [
+  { name: "intro", uri: "nvc://intro", description: "Getting started guide — what this server offers and how to use it", mimeType: "text/markdown", key: "intro" },
+  { name: "feelings-catalog", uri: "nvc://catalogs/feelings", description: "~120 NVC feelings organized by met/unmet needs, plus masking feelings", mimeType: "text/yaml", key: "feelings" },
+  { name: "needs-catalog", uri: "nvc://catalogs/needs", description: "Universal human needs in 9 categories", mimeType: "text/yaml", key: "needs" },
+  { name: "nvc-principles", uri: "nvc://knowledge/principles", description: "Core NVC principles and common pitfalls to avoid", mimeType: "text/markdown", key: "principles" },
+  { name: "four-components", uri: "nvc://knowledge/four-components", description: "The four NVC components: observation, feeling, need, request", mimeType: "text/markdown", key: "fourComponents" },
+  { name: "nvc-examples", uri: "nvc://knowledge/examples", description: "Worked NVC analyses showing the framework applied to real situations", mimeType: "text/markdown", key: "examples" },
+  { name: "nvc-overview", uri: "nvc://knowledge/overview", description: "What Nonviolent Communication is and why it matters", mimeType: "text/markdown", key: "overview" },
+];
 
-server.resource(
-  "feelings-catalog",
-  "nvc://catalogs/feelings",
-  { description: "~120 NVC feelings organized by met/unmet needs, plus masking feelings" },
-  async (uri) => ({
-    contents: [{ uri: uri.href, mimeType: "text/yaml", text: knowledge.feelings }],
-  })
-);
-
-server.resource(
-  "needs-catalog",
-  "nvc://catalogs/needs",
-  { description: "Universal human needs in 9 categories" },
-  async (uri) => ({
-    contents: [{ uri: uri.href, mimeType: "text/yaml", text: knowledge.needs }],
-  })
-);
-
-server.resource(
-  "nvc-principles",
-  "nvc://knowledge/principles",
-  { description: "Core NVC principles and common pitfalls to avoid" },
-  async (uri) => ({
-    contents: [{ uri: uri.href, mimeType: "text/markdown", text: knowledge.principles }],
-  })
-);
-
-server.resource(
-  "four-components",
-  "nvc://knowledge/four-components",
-  { description: "The four NVC components: observation, feeling, need, request" },
-  async (uri) => ({
-    contents: [{ uri: uri.href, mimeType: "text/markdown", text: knowledge.fourComponents }],
-  })
-);
-
-server.resource(
-  "nvc-examples",
-  "nvc://knowledge/examples",
-  { description: "Worked NVC analyses showing the framework applied to real situations" },
-  async (uri) => ({
-    contents: [{ uri: uri.href, mimeType: "text/markdown", text: knowledge.examples }],
-  })
-);
-
-server.resource(
-  "nvc-overview",
-  "nvc://knowledge/overview",
-  { description: "What Nonviolent Communication is and why it matters" },
-  async (uri) => ({
-    contents: [{ uri: uri.href, mimeType: "text/markdown", text: knowledge.overview }],
-  })
-);
+for (const r of resourceDefs) {
+  server.resource(r.name, r.uri, { description: r.description }, async (uri) => ({
+    contents: [{ uri: uri.href, mimeType: r.mimeType, text: knowledge[r.key] }],
+  }));
+}
 
 // ---------------------------------------------------------------------------
 // Tool: thought_clarifier
@@ -277,7 +231,7 @@ a topic for context.`,
 );
 
 // ---------------------------------------------------------------------------
-// Tool: submit_feedback
+// Tool: submit_feedback (hardened)
 // ---------------------------------------------------------------------------
 
 server.tool(
@@ -288,57 +242,104 @@ Use this to share suggestions, report issues, or tell us what you liked.
 Feedback is stored locally in feedback.json.`,
   { text: z.string().describe("The user's free-form feedback") },
   async ({ text }) => {
-    const entry = {
-      id: randomUUID(),
-      text,
-      timestamp: new Date().toISOString(),
-    };
-
-    const entries = existsSync(feedbackFile)
-      ? JSON.parse(readFileSync(feedbackFile, "utf8"))
-      : [];
-    entries.push(entry);
-    writeFileSync(feedbackFile, JSON.stringify(entries, null, 2));
-
-    return {
-      content: [
-        {
-          type: "text",
-          text: `Feedback received — thank you! (ID: ${entry.id})`,
-        },
-      ],
-    };
+    try {
+      const entry = saveFeedback(text);
+      return {
+        content: [
+          {
+            type: "text",
+            text: `Feedback received — thank you! (ID: ${entry.id})`,
+          },
+        ],
+      };
+    } catch (err) {
+      return {
+        content: [
+          {
+            type: "text",
+            text: `Failed to save feedback: ${err.message}`,
+          },
+        ],
+        isError: true,
+      };
+    }
   }
 );
 
 // ---------------------------------------------------------------------------
-// Prompt builder
+// Feedback persistence
+// ---------------------------------------------------------------------------
+
+function saveFeedback(text, filePath = feedbackFile) {
+  const entry = {
+    id: randomUUID(),
+    text,
+    timestamp: new Date().toISOString(),
+  };
+
+  let entries = [];
+  if (existsSync(filePath)) {
+    try {
+      const parsed = JSON.parse(readFileSync(filePath, "utf8"));
+      entries = Array.isArray(parsed) ? parsed : [];
+    } catch {
+      // Corrupted file — start fresh
+      entries = [];
+    }
+  }
+
+  entries.push(entry);
+
+  // FIFO eviction if over cap
+  if (entries.length > MAX_FEEDBACK_ENTRIES) {
+    entries = entries.slice(entries.length - MAX_FEEDBACK_ENTRIES);
+  }
+
+  writeFileSync(filePath, JSON.stringify(entries, null, 2));
+  return entry;
+}
+
+// ---------------------------------------------------------------------------
+// Knowledge context builder (DRY helper for prompt builders)
+// ---------------------------------------------------------------------------
+
+function buildKnowledgeContext(options = {}) {
+  const {
+    feelings = true,
+    needs = true,
+    examples = true,
+    extras = [],
+  } = options;
+
+  const sections = [
+    ["NVC Overview", knowledge.overview],
+    ["The Four Components", knowledge.fourComponents],
+    ["Core Principles and Common Pitfalls", knowledge.principles],
+  ];
+
+  if (feelings) sections.push(["Feelings Catalog (YAML)", knowledge.feelings]);
+  if (needs) sections.push(["Needs Catalog (YAML)", knowledge.needs]);
+  if (examples) sections.push(["Worked Examples", knowledge.examples]);
+
+  for (const [label, content] of extras) {
+    sections.push([label, content]);
+  }
+
+  const body = sections
+    .map(([label, content]) => `--- ${label} ---\n${content}`)
+    .join("\n\n");
+
+  return `=== NVC KNOWLEDGE BASE ===\n\n${body}\n\n=== END KNOWLEDGE BASE ===`;
+}
+
+// ---------------------------------------------------------------------------
+// Prompt builder: thought_clarifier
 // ---------------------------------------------------------------------------
 
 function buildThoughtClarifierPrompt(userText) {
   return `You are an expert in Nonviolent Communication (NVC). Analyze the user's text below using the NVC knowledge base provided.
 
-=== NVC KNOWLEDGE BASE ===
-
---- NVC Overview ---
-${knowledge.overview}
-
---- The Four Components ---
-${knowledge.fourComponents}
-
---- Core Principles and Common Pitfalls ---
-${knowledge.principles}
-
---- Feelings Catalog (YAML) ---
-${knowledge.feelings}
-
---- Needs Catalog (YAML) ---
-${knowledge.needs}
-
---- Worked Examples ---
-${knowledge.examples}
-
-=== END KNOWLEDGE BASE ===
+${buildKnowledgeContext()}
 
 === INSTRUCTIONS ===
 
@@ -384,30 +385,7 @@ Now provide your NVC analysis.`;
 function buildTransformMessagePrompt(userText) {
   return `You are an expert in Nonviolent Communication (NVC). Your task is to help the user transform their message using NVC principles. Use the knowledge base and transformation guide provided below.
 
-=== NVC KNOWLEDGE BASE ===
-
---- NVC Overview ---
-${knowledge.overview}
-
---- The Four Components ---
-${knowledge.fourComponents}
-
---- Core Principles and Common Pitfalls ---
-${knowledge.principles}
-
---- Feelings Catalog (YAML) ---
-${knowledge.feelings}
-
---- Needs Catalog (YAML) ---
-${knowledge.needs}
-
---- Worked Examples ---
-${knowledge.examples}
-
---- Message Transformation Guide ---
-${knowledge.transformationGuide}
-
-=== END KNOWLEDGE BASE ===
+${buildKnowledgeContext({ extras: [["Message Transformation Guide", knowledge.transformationGuide]] })}
 
 === INSTRUCTIONS ===
 
@@ -448,34 +426,16 @@ Now offer the user the choice between one-shot and guided mode, then proceed acc
 // ---------------------------------------------------------------------------
 
 function buildNvcTrainerPrompt(topic, difficulty) {
-  // Include topic-specific catalog to keep prompt size reasonable
-  const topicCatalog =
-    topic === "feelings"
-      ? `\n--- Feelings Catalog (YAML) ---\n${knowledge.feelings}\n`
-      : topic === "needs"
-        ? `\n--- Needs Catalog (YAML) ---\n${knowledge.needs}\n`
-        : `\n--- Feelings Catalog (YAML) ---\n${knowledge.feelings}\n\n--- Needs Catalog (YAML) ---\n${knowledge.needs}\n`;
+  const feelingsIncluded = topic !== "needs";
+  const needsIncluded = topic !== "feelings";
 
   return `You are an expert NVC (Nonviolent Communication) trainer. Generate a single interactive exercise based on the parameters and knowledge base below.
 
-=== NVC KNOWLEDGE BASE ===
-
---- NVC Overview ---
-${knowledge.overview}
-
---- The Four Components ---
-${knowledge.fourComponents}
-
---- Core Principles and Common Pitfalls ---
-${knowledge.principles}
-
---- Worked Examples ---
-${knowledge.examples}
-${topicCatalog}
---- NVC Trainer Guide ---
-${knowledge.trainerGuide}
-
-=== END KNOWLEDGE BASE ===
+${buildKnowledgeContext({
+    feelings: feelingsIncluded,
+    needs: needsIncluded,
+    extras: [["NVC Trainer Guide", knowledge.trainerGuide]],
+  })}
 
 === EXERCISE PARAMETERS ===
 
@@ -524,27 +484,7 @@ function buildPoliticalDiscoursePrompt(citations, topic) {
 
   return `You are an expert in both Nonviolent Communication (NVC) and political communication analysis. Your task is to analyze real political citations through the NVC lens — identifying life-alienating communication patterns and surfacing the human needs behind the rhetoric.
 
-=== NVC KNOWLEDGE BASE ===
-
---- NVC Overview ---
-${knowledge.overview}
-
---- The Four Components ---
-${knowledge.fourComponents}
-
---- Core Principles and Common Pitfalls ---
-${knowledge.principles}
-
---- Feelings Catalog (YAML) ---
-${knowledge.feelings}
-
---- Needs Catalog (YAML) ---
-${knowledge.needs}
-
---- Political Discourse Guide ---
-${knowledge.discourseGuide}
-
-=== END KNOWLEDGE BASE ===
+${buildKnowledgeContext({ examples: false, extras: [["Political Discourse Guide", knowledge.discourseGuide]] })}
 
 === CITATIONS TO ANALYZE ===
 ${topicBlock}
@@ -579,8 +519,26 @@ Now analyze the citations.`;
 }
 
 // ---------------------------------------------------------------------------
-// Start server
+// Start server (skip in test mode so imports don't trigger stdio)
 // ---------------------------------------------------------------------------
 
-const transport = new StdioServerTransport();
-await server.connect(transport);
+if (!process.env.NVC_TEST_MODE) {
+  const transport = new StdioServerTransport();
+  await server.connect(transport);
+}
+
+// ---------------------------------------------------------------------------
+// Exports for testing
+// ---------------------------------------------------------------------------
+
+export {
+  buildKnowledgeContext,
+  buildThoughtClarifierPrompt,
+  buildTransformMessagePrompt,
+  buildNvcTrainerPrompt,
+  buildPoliticalDiscoursePrompt,
+  saveFeedback,
+  knowledge,
+  feedbackFile,
+  MAX_FEEDBACK_ENTRIES,
+};
