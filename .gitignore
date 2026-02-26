@@ -3,5 +3,5 @@ node_modules/
 *.log
 .DS_Store
 feedback.json
-.claude/
+.claude/settings.local.json
 .mcp.json

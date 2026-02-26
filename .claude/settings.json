@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "nvc": {
+      "command": "node",
+      "args": ["index.js"]
+    }
+  }
+}
