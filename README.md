@@ -2,7 +2,11 @@
 
 Nonviolent Communication tools for any LLM — via MCP or a copy-paste prompt.
 
-Nonviolent Communication (NVC) is a way of talking and listening that focuses on what we observe, feel, and need — instead of blaming, judging, or demanding. Created by Marshall Rosenberg, it helps us connect with ourselves and others so that our natural compassion can come through. This project brings NVC into your everyday conversations with AI. If you're new to NVC, [this practical guide](https://www.dave-bailey.com/blog/nonviolent-communication) is a great place to start.
+Ever hesitated to give feedback because you wanted to avoid conflict? Ever wondered how to interpret feedback you received? Ever wondered what your own — or another person's — real motives are?
+
+NVC (Nonviolent Communication) gives you simple building blocks to communicate your needs with clarity, without blame or judgment. Not addressing issues is an issue. Let's lower the barrier and increase the effectiveness of feedback to others and to ourselves using Nonviolent Communication.
+
+This tool makes it easy to get started. Clarify your thoughts, rewrite tricky messages using NVC, and practice until it becomes second nature. If you're new to NVC, [this practical guide](https://www.dave-bailey.com/blog/nonviolent-communication) is a great place to start.
 
 ## Pick Your Path
 
